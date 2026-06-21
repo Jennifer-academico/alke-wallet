@@ -3,6 +3,20 @@ $(document).ready(function() {
   var saldo = parseInt(localStorage.getItem('saldo')) || 60000;
   $('#saldo').text(saldo.toLocaleString('es-CL'));
 
+  // Cargar contactos guardados
+  var contactos = JSON.parse(localStorage.getItem('contactos')) || [];
+
+  function renderizarContactos() {
+    $('#contactList').empty();
+    contactos.forEach(function(c) {
+      $('#contactList').append(
+        '<li class="list-group-item">' + c.nombre + ' — ' + c.banco + ' (' + c.alias + ')</li>'
+      );
+    });
+  }
+
+  renderizarContactos();
+
   $('#btnAgregarContacto').click(function() {
     $('#formContacto').show();
   });
@@ -17,27 +31,28 @@ $(document).ready(function() {
     event.preventDefault();
 
     var nombre = $('#nombre').val().trim();
-    var cbu = $('#cbu').val().trim();
+    var cuenta = $('#cbu').val().trim();
     var alias = $('#alias').val().trim();
     var banco = $('#banco').val().trim();
 
-    if (!nombre || !cbu || !alias || !banco) {
+    if (!nombre || !cuenta || !alias || !banco) {
       $('#alert-container').html(
         '<div class="alert alert-danger">Todos los campos son obligatorios.</div>'
       );
       return;
     }
 
-    if (cbu.length < 6 || isNaN(cbu)) {
-    $('#alert-container').html(
-      '<div class="alert alert-danger">El número de cuenta debe ser numérico y tener al menos 6 dígitos.</div>'
-    );
-    return;
+    if (cuenta.length < 6 || isNaN(cuenta)) {
+      $('#alert-container').html(
+        '<div class="alert alert-danger">El número de cuenta debe ser numérico y tener al menos 6 dígitos.</div>'
+      );
+      return;
     }
 
-    $('#contactList').append(
-      '<li class="list-group-item">' + nombre + ' — ' + banco + ' (' + alias + ')</li>'
-    );
+    contactos.push({ nombre: nombre, cuenta: cuenta, alias: alias, banco: banco });
+    localStorage.setItem('contactos', JSON.stringify(contactos));
+
+    renderizarContactos();
 
     $('#alert-container').html(
       '<div class="alert alert-success">Contacto agregado correctamente.</div>'
@@ -83,7 +98,7 @@ $(document).ready(function() {
 
     saldo -= monto;
     localStorage.setItem('saldo', saldo);
-  
+
     var movimientos = JSON.parse(localStorage.getItem('movimientos')) || [];
     movimientos.push({
       tipo: 'transferencia',
