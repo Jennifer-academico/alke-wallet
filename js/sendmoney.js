@@ -30,7 +30,7 @@ $(document).ready(function() {
     event.preventDefault();
 
     var nombre = $('#nombre').val().trim();
-    var cuenta = $('#cbu').val().trim();
+    var cuenta = $('#cta').val().trim();
     var alias = $('#alias').val().trim();
     var banco = $('#banco').val().trim();
 
