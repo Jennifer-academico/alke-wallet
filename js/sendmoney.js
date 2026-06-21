@@ -2,8 +2,7 @@ $(document).ready(function() {
 
   var saldo = parseInt(localStorage.getItem('saldo')) || 60000;
   $('#saldo').text(saldo.toLocaleString('es-CL'));
-
-  // Cargar contactos guardados
+ 
   var contactos = JSON.parse(localStorage.getItem('contactos')) || [];
 
   function renderizarContactos() {
