@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enviar dinero - Alke Wallet</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div class="contenedor-pagina">
+
+    <h2>Enviar dinero</h2>
+    <h4>Saldo disponible: $<span id="saldo">0</span></h4>
+
+    <button id="btnAgregarContacto" class="btn btn-success w-100 mb-3">Agregar contacto</button>
+
+    <form id="formContacto" class="form-contacto">
+      <div class="mb-3">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" class="form-control" placeholder="Ej: Juan Pérez">
+      </div>
+      <div class="mb-3">
+        <label for="cbu">CBU</label>
+        <input type="text" id="cbu" class="form-control" placeholder="22 dígitos">
+      </div>
+      <div class="mb-3">
+        <label for="alias">Alias</label>
+        <input type="text" id="alias" class="form-control" placeholder="Ej: juan.perez.wallet">
+      </div>
+      <div class="mb-3">
+        <label for="banco">Banco</label>
+        <input type="text" id="banco" class="form-control" placeholder="Ej: Banco Estado">
+      </div>
+      <button type="submit" class="btn btn-primary w-100 mb-2">Guardar contacto</button>
+      <button type="button" id="btnCancelar" class="btn btn-secondary w-100">Cancelar</button>
+    </form>
+
+    <div class="mb-3 mt-3">
+      <input type="text" id="buscar" class="form-control" placeholder="Buscar contacto por nombre o alias">
+    </div>
+
+    <ul id="contactList" class="list-group mb-3"></ul>
+
+    <div id="campoMonto" class="campo-monto mb-3">
+      <label for="montoEnvio">Monto a enviar</label>
+      <input type="number" id="montoEnvio" class="form-control" placeholder="Ej: 10000">
+    </div>
+
+    <button id="btnEnviarDinero" class="btn btn-danger w-100 mb-3">Enviar dinero</button>
+
+    <div id="alert-container" class="mt-2"></div>
+
+    <a href="menu.html" class="btn btn-secondary w-100 mt-3">Volver al menú</a>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/login.js"></script>
+
+</body>
+</html>
