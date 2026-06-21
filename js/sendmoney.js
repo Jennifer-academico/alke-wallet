@@ -28,11 +28,11 @@ $(document).ready(function() {
       return;
     }
 
-    if (cbu.length !== 22 || isNaN(cbu)) {
-      $('#alert-container').html(
-        '<div class="alert alert-danger">El CBU debe tener 22 dígitos.</div>'
-      );
-      return;
+    if (cbu.length < 6 || isNaN(cbu)) {
+    $('#alert-container').html(
+      '<div class="alert alert-danger">El número de cuenta debe ser numérico y tener al menos 6 dígitos.</div>'
+    );
+    return;
     }
 
     $('#contactList').append(
