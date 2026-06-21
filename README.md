@@ -27,7 +27,7 @@ Construir una interfaz web funcional usando HTML, CSS, Bootstrap 5, jQuery y Jav
    - Depositar dinero a la cuenta.
    - Enviar dinero a un contacto registrado.
    - Revisar los últimos movimientos.
-3. El saldo y los movimientos quedan guardados en el LocalStorage del navegador.
+3. El saldo, los contactos y los movimientos quedan guardados en el LocalStorage del navegador.
 
 ## Funcionalidades
 
