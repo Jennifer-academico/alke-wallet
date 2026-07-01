@@ -1,0 +1,75 @@
+# Alke Wallet — Base de Datos
+
+Diseño e implementación de una base de datos relacional para gestionar una wallet digital: usuarios, monedas disponibles y transacciones entre usuarios.
+
+**Motor:** MySQL 8
+**Herramienta de ejecución:** MySQL Workbench
+**Nivel:** Trainee
+
+## Contenido de esta carpeta
+
+| Archivo | Descripción |
+|---|---|
+| `AlkeWallet.sql` | Script completo: creación de la base de datos, tablas, datos de prueba y consultas |
+| `Diagrama_ER.png` | Diagrama entidad-relación, generado desde MySQL Workbench (Reverse Engineer) |
+
+## Diagrama entidad-relación
+
+![Diagrama ER de Alke Wallet](Diagrama_ER.png)
+
+## Modelo de datos
+
+El sistema se compone de tres entidades:
+
+**usuario** — cada persona registrada en la wallet. Tiene una moneda preferida asociada.
+- `user_id` (PK)
+- `nombre`
+- `correo_electronico`
+- `contrasena`
+- `saldo`
+- `currency_id` (FK → moneda)
+
+**moneda** — las monedas disponibles para operar en la wallet.
+- `currency_id` (PK)
+- `currency_name`
+- `currency_symbol`
+
+**transaccion** — cada movimiento de dinero entre dos usuarios, en una moneda específica.
+- `transaction_id` (PK)
+- `sender_user_id` (FK → usuario)
+- `receiver_user_id` (FK → usuario)
+- `importe`
+- `currency_id` (FK → moneda)
+- `transaction_date`
+
+### Relaciones
+
+- Una moneda puede ser elegida por muchos usuarios (**1:N**).
+- Un usuario puede enviar muchas transacciones (**1:N**).
+- Un usuario puede recibir muchas transacciones (**1:N**).
+- Una moneda puede estar asociada a muchas transacciones (**1:N**).
+
+## Cómo ejecutar el script
+
+1. Abrir **MySQL Workbench** y conectarse a un servidor MySQL 8 local.
+2. Abrir una nueva pestaña de consulta (Query Tab).
+3. Pegar el contenido de `AlkeWallet.sql`.
+4. Ejecutar el script completo (⚡ o `Ctrl + Shift + Enter`).
+5. Verificar en el panel de resultados que todas las acciones se ejecuten sin errores.
+
+El script crea la base de datos `AlkeWallet` desde cero, incluyendo datos de prueba, por lo que no requiere ningún paso adicional.
+
+## Consultas incluidas
+
+1. Nombre de la moneda elegida por un usuario específico.
+2. Todas las transacciones registradas (con símbolo de moneda).
+3. Todas las transacciones realizadas por un usuario específico, como emisor o receptor.
+4. Modificación del correo electrónico de un usuario específico (DML).
+5. Eliminación de una transacción específica (DML).
+6. **Extra:** total enviado por cada usuario, usando `SUM` y `GROUP BY`.
+
+## Decisiones de diseño
+
+- La moneda de cada usuario (`usuario.currency_id`) representa su moneda **preferida**, mientras que la moneda de cada transacción (`transaccion.currency_id`) representa la moneda **real en la que ocurrió ese movimiento** — ambas pueden diferir, por lo que se modelaron como relaciones independientes.
+- `saldo` tiene un valor por defecto de `0.00`, para que ningún usuario nuevo quede con saldo indefinido.
+- Los correos y contraseñas son campos obligatorios (`NOT NULL`), ya que son datos esenciales para el acceso a la cuenta.
